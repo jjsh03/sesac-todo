@@ -37,12 +37,20 @@ function App() {
     // todoItems 배열에 newItem을 추가
     setTodoItems([...todoItems, newItem]);
   };
+
+  const deleteItem = (id) => {
+    setTodoItems(todoItems.filter((item) => item.id !== id));
+  };
   return (
     <div className="App">
       <AddTodo addItem={addItem} />
       {/* todoItems 반복, props 데이터(투두 객체)를 자식 컴포넌트에게 전달 */}
       {todoItems.map((item) => (
-        <Todo key={item.id} item={item} />
+        <Todo
+          key={item.id}
+          item={item}
+          deleteItem={() => deleteItem(item.id)}
+        />
       ))}
     </div>
   );

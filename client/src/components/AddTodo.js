@@ -18,6 +18,7 @@ export default function AddTodo({ addItem }) {
         value={todoItem.title}
         onChange={(e) => setTodoItem({ title: e.target.value })}
       />
+
       <button onClick={onButtonClick}>ADD</button>
     </div>
   );
