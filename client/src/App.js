@@ -38,8 +38,10 @@ function App() {
     setTodoItems([...todoItems, newItem]);
   };
 
-  const deleteItem = (id) => {
-    setTodoItems(todoItems.filter((item) => item.id !== id));
+  // todoItem 상태에 특정 투두를 삭제하는 일
+  const deleteItem = (targetItem) => {
+    const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
+    setTodoItems(newTodoItem);
   };
   return (
     <div className="App">
