@@ -1,62 +1,71 @@
 import React, { useState } from 'react';
 
-// checkbox와 label을 렌더링 하는 투두 하나
 export default function Todo({ item, deleteItem }) {
-  // console.log(item)
   const [todoItem, setTodoItem] = useState(item);
-  const { id, title, done } = todoItem;
   const [readOnly, setReadOnly] = useState(true);
 
+  const { id, title, done } = item;
+
   const onDeleteButtonClick = () => {
-    deleteItem(item.id);
+    deleteItem(todoItem);
   };
 
+  //title 클릭하면 readonly를 false로 변경
   const offReadOnlyMode = () => {
-    setReadOnly(false);
+    const newReadOnly = false;
+    setReadOnly(newReadOnly);
   };
 
   const editEventHandler = (e) => {
-    const { title, ...rest } = todoItem;
+    const { title, id, done } = todoItem;
+    // const {title, ...rest}
     setTodoItem({
       title: e.target.value,
-      ...rest,
+      id,
+      done,
     });
+
+    // setTodoItem({
+    //   title: e.target.value,
+    //   ...rest
+    // })
+    console.log(todoItem);
   };
 
-  // Enter 키 누르면 readOnly true 변경
-  const editKeyEventHandler = (e) => {
-    if (e.key === 'Enter') {
+  // enter키 누르면 readOnly true 로 변경
+  const editKeyHandler = (e) => {
+    if (e.keyCode === 13) {
       setReadOnly(true);
     }
   };
 
-  // checkbox 상태 업데이트
   const checkboxEventHandler = (e) => {
-    const { done, ...rest } = todoItem;
+    console.log(e.target.checked);
     setTodoItem({
+      ...todoItem,
       done: e.target.checked,
-      ...rest,
     });
+    console.log(todoItem);
   };
-
   return (
     <div>
       <input
         type="checkbox"
         name={`todo${id}`}
         id={`todo${id}`}
-        defaultChecked={done}
         onChange={checkboxEventHandler}
-      />
+      ></input>
+      {/* <label htmlFor={`todo${id}`}>{title}</label>
+       */}
       <input
         type="text"
         value={todoItem.title}
         readOnly={readOnly}
         onClick={offReadOnlyMode}
         onChange={editEventHandler}
-        onKeyDown={editKeyEventHandler}
-      />
-      <button onClick={onDeleteButtonClick}>DELETE</button>
+        onKeyDown={editKeyHandler}
+      ></input>
+      <button onClick={onDeleteButtonClick}>Delete</button>
     </div>
   );
 }
