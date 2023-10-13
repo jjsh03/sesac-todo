@@ -19,40 +19,33 @@ function App() {
       title: 'my todo3',
       done: true,
     },
-    {
-      id: 4,
-      title: '백엔드 프로젝트 완성해오기',
-      done: false,
-    },
   ]);
 
-  // todoItems 상태에 새로운 투두를 추가하는 일
+  //todoItems 상태에 새로운 투두를 추가하는 일
   const addItem = (newItem) => {
-    console.log(newItem); // { title: '저녁먹기' }
+    console.log(newItem); //{title: '저녁 먹기}
 
-    // newItem id 키 값 넣고, newItem done 키 값
+    //newItems id 키 값 넣고, neItem done 키 값
     newItem.id = todoItems.length + 1;
     newItem.done = false;
 
-    // todoItems 배열에 newItem을 추가
+    //todoItems 배열에 newItems을 추가
     setTodoItems([...todoItems, newItem]);
   };
 
-  // todoItem 상태에 특정 투두를 삭제하는 일
-  const deleteItem = (targetItemId) => {
-    const newTodoItems = todoItems.filter((item) => item.id !== targetItemId);
+  // todoItems 상태에 특정 투두를 삭제하는 일
+  const deleteItem = (targetItem) => {
+    //id값만 받아도 ok
+    console.log(targetItem);
+    const newTodoItems = todoItems.filter((item) => item.id !== targetItem.id);
     setTodoItems(newTodoItems);
   };
   return (
     <div className="App">
       <AddTodo addItem={addItem} />
-      {/* todoItems 반복, props 데이터(투두 객체)를 자식 컴포넌트에게 전달 */}
+      {/* todoItems 반복,  props 데이터(투두 객체)를 자식 컴포넌트에게 전달 */}
       {todoItems.map((item) => (
-        <Todo
-          key={item.id}
-          item={item}
-          deleteItem={() => deleteItem(item.id)}
-        />
+        <Todo key={item.id} item={item} deleteItem={deleteItem} />
       ))}
     </div>
   );

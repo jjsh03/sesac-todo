@@ -2,70 +2,65 @@ import React, { useState } from 'react';
 
 export default function Todo({ item, deleteItem }) {
   const [todoItem, setTodoItem] = useState(item);
+  const { id, title, done } = todoItem;
   const [readOnly, setReadOnly] = useState(true);
 
-  const { id, title, done } = item;
-
   const onDeleteButtonClick = () => {
-    deleteItem(todoItem);
+    deleteItem(todoItem); //todoItem은 객체, id 값만 받아와도 되지만 추후 수정의 편의성 위해 값 다 받음
   };
 
-  //title 클릭하면 readonly를 false로 변경
+  // title 클릭하면 readOnly를 false변경 (수정 가능하도록)!!
   const offReadOnlyMode = () => {
-    const newReadOnly = false;
-    setReadOnly(newReadOnly);
+    setReadOnly(false);
   };
 
+  // title 수정
   const editEventHandler = (e) => {
-    const { title, id, done } = todoItem;
-    // const {title, ...rest}
+    const { title, ...rest } = todoItem;
     setTodoItem({
-      title: e.target.value,
-      id,
-      done,
+      title: e.target.value, //현재 유저가 입력하고 있는  value값
+      ...rest,
     });
-
-    // setTodoItem({
-    //   title: e.target.value,
-    //   ...rest
-    // })
-    console.log(todoItem);
   };
 
-  // enter키 누르면 readOnly true 로 변경
-  const editKeyHandler = (e) => {
-    if (e.keyCode === 13) {
+  // Enter 키 누르면 readOnly true로 변경
+  const editKeyEventHandler = (e) => {
+    if (e.key === 'Enter') {
       setReadOnly(true);
     }
   };
 
+  //checkbox 상태 업데이트
   const checkboxEventHandler = (e) => {
-    console.log(e.target.checked);
+    // console.log(e);
+    const { done, ...rest } = todoItem;
     setTodoItem({
-      ...todoItem,
-      done: e.target.checked,
+      done: e.target.checked, //현재 유저가 입력하고 있는  value값
+      ...rest,
     });
-    console.log(todoItem);
   };
+
   return (
     <div>
       <input
         type="checkbox"
         name={`todo${id}`}
         id={`todo${id}`}
+        defaultChecked={done}
         onChange={checkboxEventHandler}
-      ></input>
-      {/* <label htmlFor={`todo${id}`}>{title}</label>
-       */}
+      />
+      {/* <label htmlFor={`todo${id}`}>{title}</label> */}
       <input
         type="text"
         value={todoItem.title}
         readOnly={readOnly}
         onClick={offReadOnlyMode}
         onChange={editEventHandler}
-        onKeyDown={editKeyHandler}
-      ></input>
-      <button onClick={onDeleteButtonClick}>Delete</button>
+        onKeyDown={editKeyEventHandler}
+      />
+      {/* 클릭시 readOnly를 통해 boolean변화로 수정이 가능한 상태로 변환 */}
+      {/* onChange;로 변화하는 수정 상태를 반영 */}
+      <button onClick={onDeleteButtonClick}>delete</button>
     </div>
   );
 }
