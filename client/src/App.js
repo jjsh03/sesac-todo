@@ -39,9 +39,9 @@ function App() {
   };
 
   // todoItem 상태에 특정 투두를 삭제하는 일
-  const deleteItem = (targetItem) => {
-    const newTodoItem = todoItems.filter((item) => item.id !== targetItem.id);
-    setTodoItems(newTodoItem);
+  const deleteItem = (targetItemId) => {
+    const newTodoItems = todoItems.filter((item) => item.id !== targetItemId);
+    setTodoItems(newTodoItems);
   };
   return (
     <div className="App">
