@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Todo({ item, deleteItem }) {
+export default function Todo({ item, deleteItem, updateItem }) {
   const [todoItem, setTodoItem] = useState(item);
   const { id, title, done } = todoItem;
   const [readOnly, setReadOnly] = useState(true);
@@ -27,6 +27,7 @@ export default function Todo({ item, deleteItem }) {
   const editKeyEventHandler = (e) => {
     if (e.key === 'Enter') {
       setReadOnly(true);
+      updateItem(todoItem);
     }
   };
 
@@ -34,10 +35,12 @@ export default function Todo({ item, deleteItem }) {
   const checkboxEventHandler = (e) => {
     // console.log(e);
     const { done, ...rest } = todoItem;
-    setTodoItem({
-      done: e.target.checked, //현재 유저가 입력하고 있는  value값
+    const updateItem = {
+      done: e.target.checked,
       ...rest,
-    });
+    };
+    setTodoItem(updateItem);
+    updateItem(updateItem);
   };
 
   return (
