@@ -46,24 +46,28 @@ export default function Todo({ item, deleteItem, updateItem }) {
   };
 
   return (
-    <div>
+    <div className='todos'>
       <input
         type='checkbox'
         name={`todo${id}`}
         id={`todo${id}`}
         defaultChecked={done}
         onChange={checkboxEventHandler}
+        className='check'
       />
       {/* <label htmlFor={`todo${id}`}>{title}</label> */}
-      <input
-        type='text'
-        value={todoItem.title}
-        readOnly={readOnly}
-        onClick={offReadOnlyMode}
-        onChange={editEventHandler}
-        onKeyDown={editKeyEventHandler}
-      />
-      <button onClick={onDeleteButtonClick}>DELETE</button>
+      <label for={`todo${id}`}>
+        <input
+          type='text'
+          value={todoItem.title}
+          readOnly={readOnly}
+          onClick={offReadOnlyMode}
+          onChange={editEventHandler}
+          onKeyDown={editKeyEventHandler}
+          className='todo'
+        />
+      </label>
+      <button onClick={onDeleteButtonClick} className='delete'></button>
     </div>
   );
 }

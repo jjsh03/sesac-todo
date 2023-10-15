@@ -11,15 +11,18 @@ export default function AddTodo({ addItem }) {
   };
 
   return (
-    <div className="AddTodo">
+    <div className='AddTodo'>
       <input
-        type="text"
-        placeholder="Add your new todo"
+        type='text'
+        placeholder='Add a task'
         value={todoItem.title}
-        onChange={(e) => setTodoItem({ title: e.target.value })}
+        onChange={e => setTodoItem({ title: e.target.value })}
+        className='newTodo'
       />
 
-      <button onClick={onButtonClick}>ADD</button>
+      <button onClick={onButtonClick} className='add'>
+        ADD
+      </button>
     </div>
   );
 }

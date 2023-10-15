@@ -69,21 +69,27 @@ function App() {
 
   return (
     <div className='App'>
-      <AddTodo addItem={addItem} />
-      <div>
-        <p>Total: {todoItems.length}</p>
-        <p>Doing: {doingItems}</p>
-        <p>Done: {doneItems}</p>
+      <div className='head'>
+        <h1>Just Do IT</h1>
+        <AddTodo addItem={addItem} />
       </div>
-      {/* todoItems 반복,  props 데이터(투두 객체)를 자식 컴포넌트에게 전달 */}
-      {todoItems.map(item => (
-        <Todo
-          key={item.id}
-          item={item}
-          deleteItem={deleteItem}
-          updateItem={updateItem}
-        />
-      ))}
+      <hr />
+      <div className='body'>
+        <div className='count'>
+          <p>Total: {todoItems.length}</p>
+          <p>Pending: {doingItems}</p>
+          <p>Complete: {doneItems}</p>
+        </div>
+        {/* todoItems 반복,  props 데이터(투두 객체)를 자식 컴포넌트에게 전달 */}
+        {todoItems.map(item => (
+          <Todo
+            key={item.id}
+            item={item}
+            deleteItem={deleteItem}
+            updateItem={updateItem}
+          />
+        ))}
+      </div>
     </div>
   );
 }
